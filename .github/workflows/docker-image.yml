@@ -23,4 +23,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag cachapi:latest
     - name: Docker Push
-      run: docker push oguzhankarabulut/cachapi:latest
+      run: docker push oguzhankarabulut/cachapi
