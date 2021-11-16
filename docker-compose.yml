@@ -1,0 +1,7 @@
+services:
+  api:
+    image: oguzhankarabulut/cachapi:latest
+    ports:
+      - 3000:3000
+    container_name: api01
+    restart: unless-stopped
