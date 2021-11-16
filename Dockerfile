@@ -2,7 +2,7 @@ FROM golang:1.17.1-alpine
 
 WORKDIR /app/cachapi
 
-COPY go.mod .
+COPY go.mod .x
 
 RUN go mod download
 
