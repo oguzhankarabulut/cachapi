@@ -3,7 +3,6 @@ FROM golang:1.17.1-alpine
 WORKDIR /app/cachapi
 
 COPY go.mod .
-COPY go.sum .
 
 RUN go mod download
 
