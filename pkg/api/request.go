@@ -7,6 +7,7 @@ type cacheRequest struct {
 	Value interface{} `json:"value"`
 }
 
+// key gets key's value from query parameter
 func key(r *http.Request) string {
 	return r.URL.Query().Get("key")
 }

@@ -8,10 +8,7 @@ import (
 var a = NewCacheFacade()
 
 func Test_SetWithExistValue(t *testing.T) {
-	nc, err := a.Set("key", "value")
-	if err != nil {
-		t.Errorf("set error: %v", err)
-	}
+	nc := a.Set("key", "value")
 	if nc.GetKey() != "key" {
 		t.Error("set key error")
 	}
@@ -20,35 +17,22 @@ func Test_SetWithExistValue(t *testing.T) {
 	}
 }
 
-func Test_SetWithNilValue(t *testing.T) {
-	var v interface{}
-	if _, err := a.Set("key", v); err == nil {
-		t.Errorf("set error: %v", err)
-	}
-}
-
 func Test_GetWithExistKey(t *testing.T) {
-	if _, err := a.Set("key", "value"); err != nil {
-		t.Errorf("set error: %v", err)
-	}
+	_ = a.Set("key", "value")
 	if _, err := a.Get("key"); err != nil {
 		t.Errorf("get error: %v", err)
 	}
 }
 
 func Test_GetWithNonExistKey(t *testing.T) {
-	if _, err := a.Set("key", "value"); err != nil {
-		t.Errorf("set error: %v", err)
-	}
+	_ = a.Set("key", "value")
 	if _, err := a.Get("nonExistKey"); err == nil {
 		t.Errorf("get error: %v", err)
 	}
 }
 
 func Test_FlushCache(t *testing.T) {
-	if _, err := a.Set("key", "value"); err != nil {
-		t.Errorf("set error: %v", err)
-	}
+	_ = a.Set("key", "value")
 	a.FlushCache()
 	if len(domain.All()) > 0 {
 		t.Error("flush cache error")

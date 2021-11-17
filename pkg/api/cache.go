@@ -32,6 +32,7 @@ type SetRequest struct {
 	Value string `json:"value"`
 }
 
+// HandleCache controls request method and execute necessary method or return method error
 func (c CacheHandler) HandleCache(w http.ResponseWriter, r *http.Request)  {
 	switch r.Method {
 	case http.MethodGet:
@@ -43,6 +44,7 @@ func (c CacheHandler) HandleCache(w http.ResponseWriter, r *http.Request)  {
 	}
 }
 
+// HandleFlush control method method
 func (c CacheHandler) HandleFlush(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodPost:
@@ -80,10 +82,8 @@ func (c CacheHandler) Set(w http.ResponseWriter, r *http.Request) {
 		writeBadRequest(w, r, errValueNil)
 		return
 	}
-	nc, err := c.cacheFacade.Set(cr.Key, cr.Value)
-	if err != nil {
-		writeBadRequest(w, r, err)
-	}
+	nc := c.cacheFacade.Set(cr.Key, cr.Value)
+
 	writeOK(w, NewSingleResponse(nc.GetKey(), nc.GetValue()))
 }
 

@@ -7,6 +7,7 @@ import (
 
 const address = ":3000"
 
+// Server prepare endpoints and serve them
 func Server() {
 	cf := facade.NewCacheFacade()
 	handler := NewCacheHandler(cf)

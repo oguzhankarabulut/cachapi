@@ -30,6 +30,7 @@ func NewCacheRepository() *cacheRepository {
 	return &cacheRepository{}
 }
 
+// Read reads last saved file and save it to map which is used for memory store
 func (cr cacheRepository) Read() error {
 	fn, err := cr.lastSavedFile()
 	if err != nil {
@@ -51,6 +52,8 @@ func (cr cacheRepository) Read() error {
 	return nil
 }
 
+// Write creates file with unix timestamp and -data.json suffix.
+// Then read map which is used for memory store and converts it to byte array and writes to created file
 func (cr cacheRepository) Write() error {
 	f, err := os.Create(fmt.Sprintf("%s%d%s", folder, now(), fileSuffix))
 	if err != nil {
@@ -71,6 +74,7 @@ func (cr cacheRepository) Write() error {
 	return nil
 }
 
+// lastSavedFile finds a last saved file by application. It gets all files at /tmp and parse them and find last one
 func (cr cacheRepository) lastSavedFile() (string, error) {
 	ff, err := ioutil.ReadDir(folder)
 	if err != nil {
@@ -94,6 +98,7 @@ func (cr cacheRepository) lastSavedFile() (string, error) {
 	return lastFileName, nil
 }
 
+// readFile reads file under the /tmp folder with given file name
 func (cr cacheRepository) readFile(fn string) ([]byte, error) {
 	b, err := ioutil.ReadFile(fmt.Sprintf("/tmp/%s", fn))
 	if err != nil {
@@ -102,6 +107,7 @@ func (cr cacheRepository) readFile(fn string) ([]byte, error) {
 	return b, nil
 }
 
+// saveLocal saves the key-values the map which is used for memory store
 func (cr cacheRepository) saveLocal(b []byte) error {
 	if err := json.Unmarshal(b, domain.AllP()); err != nil {
 		return err

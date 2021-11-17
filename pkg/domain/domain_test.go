@@ -16,26 +16,15 @@ func Test_NewCache(t *testing.T) {
 	}
 }
 
-func Test_SetWithExistValue(t *testing.T) {
+func Test_Set(t *testing.T) {
 	nc := NewCache("key", "value")
-	if err := Set(nc); err != nil {
-		t.Errorf("set error: %v", err)
-	}
-}
-
-func Test_SetWithNilValue(t *testing.T) {
-	var v interface{}
-	nc := NewCache("key", v)
-	if err := Set(nc); err == nil {
-		t.Errorf("set error: %v", err)
-	}
+	Set(nc)
+	t.Log("success")
 }
 
 func Test_GetWithExistKey(t *testing.T) {
 	nc := NewCache("key", "value")
-	if err := Set(nc); err != nil {
-		t.Errorf("set error: %v", err)
-	}
+	Set(nc)
 	c, err := Get("key")
 	if err != nil {
 		t.Errorf("get value exist error: %v", err)
@@ -53,9 +42,7 @@ func Test_GetWithNonExistKey(t *testing.T) {
 
 func Test_All(t *testing.T) {
 	nc := NewCache("key", "value")
-	if err := Set(nc); err != nil {
-		t.Errorf("set error: %v", err)
-	}
+	Set(nc)
 	a := All()
 	if a["key"] != "value" {
 		t.Error("all error")
@@ -64,9 +51,7 @@ func Test_All(t *testing.T) {
 
 func Test_Flush(t *testing.T) {
 	nc := NewCache("key", "value")
-	if err := Set(nc); err != nil {
-		t.Errorf("set error: %v", err)
-	}
+	Set(nc)
 	Flush()
 	if len(All()) != 0 {
 		t.Error("flush error")

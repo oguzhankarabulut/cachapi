@@ -30,6 +30,7 @@ func newResponse(
 	}
 }
 
+// write return response
 func write(w http.ResponseWriter, r *Response) {
 	o, err := json.Marshal(r)
 	if err != nil {
@@ -40,11 +41,13 @@ func write(w http.ResponseWriter, r *Response) {
 	_, _ = w.Write(o)
 }
 
+// writeOK should be used for status 200 responses
 func writeOK(w http.ResponseWriter, v interface{}) {
 	r := newResponse(v, "", http.StatusOK)
 	write(w, r)
 }
 
+// writeBadRequest should be used for status 400 responses
 func writeBadRequest(w http.ResponseWriter, r *http.Request, err error) {
 	logError(r, err)
 	res := newResponse(nil, err.Error(), http.StatusBadRequest)
@@ -52,6 +55,7 @@ func writeBadRequest(w http.ResponseWriter, r *http.Request, err error) {
 	write(w, res)
 }
 
+// writeNotFound should be used for 404 responses
 func writeNotFound(w http.ResponseWriter, r *http.Request, err error) {
 	logError(r, err)
 	res := newResponse(nil, err.Error(), http.StatusNotFound)
@@ -59,6 +63,7 @@ func writeNotFound(w http.ResponseWriter, r *http.Request, err error) {
 	write(w, res)
 }
 
+// writeMethodErr should be used for 405 responses
 func writeMethodErr(w http.ResponseWriter, r *http.Request) {
 	logError(r, errMethodNotAllowed)
 	res := newResponse(nil, errMethodNotAllowed.Error(), http.StatusMethodNotAllowed)
@@ -66,6 +71,7 @@ func writeMethodErr(w http.ResponseWriter, r *http.Request) {
 	write(w, res)
 }
 
+// logError log errors if response is not success
 func logError(r *http.Request, err error) {
-	log.Println(fmt.Sprintf("Error: %s Url: %s", err.Error(), r.URL))
+	log.Println(fmt.Sprintf("Error: %s Url: %s, Method: %s", err.Error(), r.URL, r.Method))
 }
