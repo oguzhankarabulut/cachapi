@@ -5,3 +5,16 @@ services:
       - 3000:3000
     container_name: api01
     restart: unless-stopped
+    networks:
+      - cachapi
+
+    nginx:
+      image: library/nginx:1.18.0-alpine
+      restart: unless-stopped
+      container_name: nginx01
+      ports:
+        - 80:80
+      networks:
+        - cachapi
+      volumes:
+        - /home/ubuntu/nginx.conf:/etc/nginx/nginx.conf

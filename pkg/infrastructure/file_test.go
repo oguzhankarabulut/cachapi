@@ -56,9 +56,7 @@ func Test_LastSavedFile(t *testing.T) {
 
 func Test_Write(t *testing.T) {
 	nc := domain.NewCache("foo", "bar")
-	if err := domain.Set(nc); err != nil {
-		t.Errorf("set error: %v", err)
-	}
+	domain.Set(nc)
 	err := a.Write(); if err != nil {
 		t.Errorf("write error: %v", err)
 	}
