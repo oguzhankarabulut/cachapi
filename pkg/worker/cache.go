@@ -19,7 +19,7 @@ func NewCacheWorker(cacheService domain.CacheService) *cacheWorker {
 
 func (cw cacheWorker) Run() {
 	for {
-		time.Sleep(1 * time.Minute)
+		time.Sleep(30 * time.Minute)
 		if len(domain.All()) != 0 {
 			if err := cw.cs.Write(); err != nil {
 				log.Println(fmt.Sprintf("Worker Error: %v", err))
