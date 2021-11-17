@@ -2,6 +2,8 @@
 
 Cachapi is simple key-value memory store application you can use it with http requests. It also saves to store value periodically(per minute) to json file with "timestamp-data.json" name under /tmp folder.
 
+PS: Value can be any type: bool, string, int, array, object..
+
 ## API DOC
 
 You can reach api documentation via:
