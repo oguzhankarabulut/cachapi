@@ -16,4 +16,4 @@ Clone the repository and run main.go it will serve the http server to `http://lo
 
 ## Test Env
 
-You can use `http://18.234.112.151/` address for text requests
+You can use `http://18.234.112.151/` address for test requests
