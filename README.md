@@ -13,3 +13,7 @@ You can reach api documentation via:
 ## Installation
 
 Clone the repository and run main.go it will serve the http server to `http://localhost:3000` or use docker file!
+
+## Test Env
+
+You can use `http://18.234.112.151/` address for text requests
